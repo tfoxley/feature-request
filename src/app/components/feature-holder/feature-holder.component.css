@@ -1,0 +1,22 @@
+.feature-item {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.feature-left {
+  flex: 0 0 20px;
+  margin-top: 10px;
+}
+
+.feature-mid {
+  flex: 1 1 auto;
+  margin: 0 10px;
+}
+.remove-feature {
+  flex: 0 0 20px;
+}
+.remove-feature i {
+  font-size: 20px;
+}
