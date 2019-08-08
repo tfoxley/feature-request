@@ -1,36 +1,84 @@
 <form #featureForm="ngForm" (ngSubmit)="addFeature(featureForm.value)">
-    <input type="text" name="title" placeholder="Feature Title" ngModel>
-    <input type="text" name="description" placeholder="Feature Description" ngModel>
-    <select name="client" ngModel>
-      <option value="" disabled selected>Select a Client</option>
-      <option *ngFor="let clientOption of clientOptions" [value]="clientOption.value">{{clientOption.title}}</option>
-    </select>
-    <input type="text" name="priority" placeholder="Client priority" ngModel>
-    <input type="text" name="targetDate" placeholder="Target Date" ngModel>
-    <select name="productArea" ngModel>
-        <option value="" disabled selected>Select Product Area</option>
-        <option *ngFor="let productAreaOption of productAreaOptions" [value]="productAreaOption.value">{{productAreaOption.title}}</option>
-      </select>
-    <input type="submit" value="Submit Feature">
+  <hc-form-field>
+    <input hcInput name="title" placeholder="Feature Title" ngModel />
+  </hc-form-field>
+
+  <hc-form-field>
+    <input
+      hcInput
+      name="description"
+      placeholder="Feature Description"
+      ngModel
+    />
+  </hc-form-field>
+
+  <hc-form-field>
+    <hc-typeahead
+      placeholder="Select Client"
+      [value]="clientLabel"
+      (valueChange)="filterData($event)"
+      (optionSelected)="optionSelected($event)"
+    >
+      <hc-typeahead-item
+        *ngFor="let clientOption of clientOptionsFiltered"
+        [value]="clientOption"
+      >
+        {{ clientOption.title }}
+      </hc-typeahead-item>
+    </hc-typeahead>
+  </hc-form-field>
+
+  <hc-form-field>
+    <input hcInput name="priority" placeholder="Client priority" ngModel />
+  </hc-form-field>
+
+  <hc-form-field>
+    <input hcInput name="targetDate" placeholder="Target Date" ngModel />
+  </hc-form-field>
+
+  <hc-form-field>
+    <hc-select placeholder="Select Product Area" name="productArea" ngModel>
+      <option
+        *ngFor="let productAreaOption of productAreaOptions"
+        [value]="productAreaOption.value"
+        >{{ productAreaOption.title }}</option
+      >
+    </hc-select>
+  </hc-form-field>
+
+  <div style="text-align: center;">
+    <button
+      hc-button
+      title="Submit Feature"
+      type="submit"
+      buttonStyle="primary"
+    >
+      Submit Feature
+    </button>
+  </div>
 </form>
 
-<hr>
+<hr />
 <h2>Current Features</h2>
 <div class="feature-item" *ngFor="let feature of features">
   <div class="feature-left">
-    <input type="checkbox">
+    <input type="checkbox" />
   </div>
   <div class="feature-mid">
     <h3>{{ feature.title }}</h3>
-    <p><span class="fixed-width">Description: </span>{{ feature.description }}</p>
+    <p>
+      <span class="fixed-width">Description: </span>{{ feature.description }}
+    </p>
     <p><span class="fixed-width">Client: </span>{{ feature.client }}</p>
     <p><span class="fixed-width">Priority: </span>{{ feature.priority }}</p>
-    <p><span class="fixed-width">Target Date: </span>{{ feature.targetDate }}</p>
-    <p><span class="fixed-width">Product Area: </span>{{ feature.productArea }}</p>
+    <p>
+      <span class="fixed-width">Target Date: </span>{{ feature.targetDate }}
+    </p>
+    <p>
+      <span class="fixed-width">Product Area: </span>{{ feature.productArea }}
+    </p>
   </div>
   <div class="remove-feature" (click)="deleteFeature(feature.id)">
     <i class="fas fa-times"></i>
   </div>
 </div>
-
-
